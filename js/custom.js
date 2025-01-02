@@ -346,3 +346,23 @@ $(function() {
     });
     
 
+document.addEventListener('DOMContentLoaded', function () {
+    const navbar = document.querySelector('.navbar');
+    const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
+    const navbarToggler = document.querySelector('.navbar-toggler');
+    const navbarCollapse = document.querySelector('#navbarSupportedContent');
+
+    navLinks.forEach(link => {
+        link.addEventListener('click', function () {
+            if (window.innerWidth <= 992) { // Mobile and tablet view (Bootstrap lg breakpoint)
+                // Collapse the menu if it's open
+                if (navbarToggler && navbarCollapse.classList.contains('show')) {
+                    navbarToggler.click(); // Collapse the menu
+                }
+
+                // Ensure the navbar remains visible
+                navbar.classList.remove('mobile-hidden');
+            }
+        });
+    });
+});

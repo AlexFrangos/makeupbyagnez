@@ -778,6 +778,12 @@ html {
     -webkit-transition: all .3s;
     transition: all .3s;
 }
+
+/* Add this at the bottom of your CSS */
+.navbar.mobile-hidden {
+    display: none !important;
+}
+
 @media screen and (max-width: 767px) {
     .navbar {
         padding-left: 0px;

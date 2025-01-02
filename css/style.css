@@ -2426,7 +2426,7 @@ font-size: 14px;
   /* ===== Responsive Design for Smaller Devices ===== */
   @media (max-width: 767px) {
     .instagram-embed {
-      height: 400px; /* Slightly smaller height for mobile devices */
+      height: 5000px; /* Slightly smaller height for mobile devices */
     }
   }
   

@@ -517,7 +517,7 @@
 
 
 
-<!-- Contact Section -->
+<<!-- Contact Section -->
 <section id="contact" class="contact section-padding bg-cream">
     <div class="container">
         <!-- Section Title -->
@@ -534,51 +534,60 @@
         <div class="row align-items-center">
             <!-- Instagram Preview -->
             <div class="col-md-5 mb-30 animate-box" data-animate-effect="fadeInLeft">
-                <div class="instagram-embed">
-                    <iframe 
-                        src="https://www.instagram.com/makeupbyagnezp/embed"
-                        allowtransparency="true"
-                        frameborder="0"
-                        scrolling="no"
-                        style="border: 0;">
-                    </iframe>
+                <div class="instagram-embed-container">
+                    <div class="instagram-embed">
+                        <iframe 
+                            src="https://www.instagram.com/makeupbyagnezp/embed"
+                            allowtransparency="true"
+                            frameborder="0"
+                            scrolling="no"
+                            loading="lazy"
+                            title="Instagram Embed">
+                        </iframe>
+                    </div>
+                    <div class="instagram-cta buttons">
+                        <div class="butn-dark">
+                            <a href="https://www.instagram.com/makeupbyagnezp" target="_blank" rel="noopener noreferrer">
+                                <span>Follow Us on Instagram</span>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-       <!-- Contact Form -->
-<div class="col-md-6 offset-md-1 animate-box" data-animate-effect="fadeInRight">
-    <h6>Get in touch</h6>
-    <form method="POST" class="contact__form" action="https://formspree.io/f/xyzzbejg">
-        <div class="row">
-            <div class="col-12">
-                <div class="alert alert-success contact__msg" style="display: none" role="alert">
-                    Your message was sent successfully. We'll get back to you in the next 24hrs!
-                </div>
+            <!-- Contact Form -->
+            <div class="col-md-6 offset-md-1 animate-box" data-animate-effect="fadeInRight">
+                <h6>Get in touch</h6>
+                <form method="POST" class="contact__form" action="https://formspree.io/f/xyzzbejg">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="alert alert-success contact__msg" style="display: none" role="alert">
+                                Your message was sent successfully. We'll get back to you in the next 24hrs!
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 form-group">
+                            <input name="name" type="text" placeholder="Your Name *" required>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <input name="email" type="email" placeholder="Your Email *" required>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <input name="phone" type="text" placeholder="Your Number *" required>
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <input name="subject" type="text" placeholder="Subject *" required>
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <textarea name="message" id="message" cols="30" rows="4" placeholder="Message *" required></textarea>
+                        </div>
+                        <div class="col-md-12">
+                            <button type="submit">Send Message</button>
+                        </div>
+                    </div>
+                </form>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12 form-group">
-                <input name="name" type="text" placeholder="Your Name *" required>
-            </div>
-            <div class="col-md-6 form-group">
-                <input name="email" type="email" placeholder="Your Email *" required>
-            </div>
-            <div class="col-md-6 form-group">
-                <input name="phone" type="text" placeholder="Your Number *" required>
-            </div>
-            <div class="col-md-12 form-group">
-                <input name="subject" type="text" placeholder="Subject *" required>
-            </div>
-            <div class="col-md-12 form-group">
-                <textarea name="message" id="message" cols="30" rows="4" placeholder="Message *" required></textarea>
-            </div>
-            <div class="col-md-12">
-                <button type="submit">Send Message</button>
-            </div>
-        </div>
-    </form>
-</div>
-
         </div>
     </div>
 </section>

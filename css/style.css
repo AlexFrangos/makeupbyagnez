@@ -2405,36 +2405,91 @@ font-size: 14px;
     width: 100%;
     height: 500px;
 }
+/* ===== Instagram Embed Container ===== */
+.instagram-embed-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: #fff; /* Clean background for clarity */
+    border-radius: 15px; /* Rounded corners for modern design */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+    overflow: hidden;
+    padding: 15px;
+    margin-bottom: 30px; /* Separation from other sections */
+}
 
 /* ===== Instagram Embed ===== */
 .instagram-embed {
     position: relative;
     width: 100%;
-    height: 500px; /* Fixed height for desktop */
     overflow: hidden;
-    border-radius: 20px; /* Rounded corners */
-  }
-  
-  /* Style the iframe directly */
-  .instagram-embed iframe {
+    border-radius: 15px;
+    aspect-ratio: 1 / 1; /* Maintains square aspect ratio */
+}
+
+.instagram-embed iframe {
     width: 100%;
     height: 100%;
-    border-radius: 20px; /* Ensure corners match the container */
-    border: 0; /* Remove any default border */
-  }
-  
-  /* ===== Responsive Design for Smaller Devices ===== */
-  @media (max-width: 767px) {
+    border: 0;
+    border-radius: 15px; /* Ensures iframe corners match */
+}
+
+/* ===== Instagram CTA Button (Using Brown Theme) ===== */
+.instagram-cta {
+    margin-top: 15px; /* Space above the button */
+    text-align: center; /* Center align the button */
+}
+
+.instagram-cta .butn-dark {
+    margin-top: 10px; /* Separation from the embed */
+}
+
+.instagram-cta .butn-dark a {
+    font-size: 16px; /* Readable font size */
+    padding: 10px 28px; /* Balanced padding */
+    background: #613228; /* Brown background from earlier */
+    color: #fcf8f3; /* Light text for contrast */
+    border-radius: 8px; /* Smooth rounded corners */
+    transition: all 0.3s ease; /* Smooth transition */
+}
+
+.instagram-cta .butn-dark a:hover {
+    background: #f9efe2; /* Light cream hover effect */
+    color: #000; /* Dark text for contrast on hover */
+}
+
+/* ===== Responsive Design ===== */
+@media (max-width: 992px) {
     .instagram-embed {
-      height: 5000px; /* Slightly smaller height for mobile devices */
+        aspect-ratio: 4 / 3; /* Adapt to wider aspect ratio on tablets */
     }
-  }
-  
-  @media (max-width: 575px) {
+    .instagram-embed-container {
+        padding: 12px;
+    }
+}
+
+@media (max-width: 767px) {
     .instagram-embed {
-      height: 300px; /* Further reduced height for extra-small devices */
+        aspect-ratio: 16 / 9; /* Adapt to landscape ratio on mobile */
     }
-  }
+    .instagram-embed-container {
+        padding: 10px;
+    }
+}
+
+@media (max-width: 575px) {
+    .instagram-embed {
+        aspect-ratio: 4 / 5; /* Taller embed for small mobile devices */
+    }
+    .instagram-cta .butn-dark a {
+        font-size: 14px; /* Slightly smaller text for mobile screens */
+        padding: 8px 18px; /* Compact padding for smaller viewports */
+    }
+}
+
+
 
 
 

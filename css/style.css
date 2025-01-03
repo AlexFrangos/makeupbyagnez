@@ -2362,66 +2362,92 @@ font-size: 14px;
   margin-left: 5px;
 }
 
-/* ======= Contact style ======= */
+/* ======= General Contact Section Styling ======= */
 .contact h6 {
     font-family: 'Didact Gothic', sans-serif;
     font-size: 18px;
-        color: #613228;
+    color: #613228;
 }
-/* contact list */
+
+/* ======= Contact List ======= */
 .contact-list {
     position: relative;
     display: block;
 }
+
 .contact-list li {
     position: relative;
     display: flex;
     align-items: center;
 }
+
 .contact-list li + li {
     margin-top: 5px;
 }
+
 .contact-list li .icon span {
     font-size: 18px;
     color: #613228;
 }
+
 .contact-list li .text {
     margin-left: 20px;
 }
+
 .contact-list li .text p {
     margin: 0;
     font-size: 18px;
     color: #000;
 }
+
 .contact-list li .text p a {
     font-size: 18px;
     color: #000;
     transition: all 500ms ease;
 }
+
 .contact-list li .text p a:hover {
     color: #613228;
 }
+
+/* ======= Map ======= */
 .contactMap {
     width: 100%;
     height: 500px;
 }
-/* ===== Instagram Embed Container ===== */
-.instagram-embed-container {
+
+/* ======= Contact & Instagram Equal Height ======= */
+.contact .row.align-items-center {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    background: #fff; /* Clean background for clarity */
-    border-radius: 15px; /* Rounded corners for modern design */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
-    overflow: hidden;
-    padding: 15px;
-    margin-bottom: 30px; /* Separation from other sections */
+    align-items: stretch; /* Ensure equal height */
 }
 
-/* ===== Instagram Embed ===== */
+/* Ensure Instagram Embed and Contact Form Share Equal Space */
+.contact .col-md-5,
+.contact .col-md-6 {
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+}
+
+/* ======= Instagram Embed Container ======= */
+.instagram-embed-container {
+    flex: 1; /* Takes full available space */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: center;
+    background: #fff; /* Clean background */
+    border-radius: 15px; /* Rounded corners */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Soft shadow */
+    overflow: hidden;
+    padding: 15px;
+    margin-bottom: 30px;
+}
+
+/* ======= Instagram Embed ======= */
 .instagram-embed {
+    flex-grow: 1;
     position: relative;
     width: 100%;
     overflow: hidden;
@@ -2433,61 +2459,158 @@ font-size: 14px;
     width: 100%;
     height: 100%;
     border: 0;
-    border-radius: 15px; /* Ensures iframe corners match */
+    border-radius: 15px;
+    pointer-events: none; /* Disable iframe interactions on mobile */
 }
 
-/* ===== Instagram CTA Button (Using Brown Theme) ===== */
+/* ======= Instagram CTA Button ======= */
 .instagram-cta {
-    margin-top: 15px; /* Space above the button */
-    text-align: center; /* Center align the button */
+    margin-top: 15px;
+    text-align: center;
 }
 
 .instagram-cta .butn-dark {
-    margin-top: 10px; /* Separation from the embed */
+    margin-top: 10px;
 }
 
 .instagram-cta .butn-dark a {
-    font-size: 16px; /* Readable font size */
-    padding: 10px 28px; /* Balanced padding */
-    background: #613228; /* Brown background from earlier */
-    color: #fcf8f3; /* Light text for contrast */
-    border-radius: 8px; /* Smooth rounded corners */
-    transition: all 0.3s ease; /* Smooth transition */
+    font-size: 16px;
+    padding: 10px 28px;
+    background: #613228; /* Brown background */
+    color: #fcf8f3; /* Light text */
+    border-radius: 8px;
+    transition: all 0.3s ease;
 }
 
 .instagram-cta .butn-dark a:hover {
     background: #f9efe2; /* Light cream hover effect */
-    color: #000; /* Dark text for contrast on hover */
+    color: #000;
 }
 
-/* ===== Responsive Design ===== */
-@media (max-width: 992px) {
-    .instagram-embed {
-        aspect-ratio: 4 / 3; /* Adapt to wider aspect ratio on tablets */
+/* ======= Contact Form Styling ======= */
+.contact__form {
+    flex: 1; /* Ensure the form fills its container */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* ======= Submit Button ======= */
+input[type="submit"],
+input[type="reset"],
+input[type="button"],
+button {
+    font-family: 'Didact Gothic', sans-serif;
+    font-size: 16px;
+    text-shadow: none;
+    box-shadow: none;
+    line-height: 1.75em;
+    transition: background-color 0.3s ease-out, color 0.3s ease-out;
+    border: none;
+    color: #fff;
+    background: #613228;
+    border: 1px solid #613228;
+    padding: 10px 27px;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+input[type="submit"]:hover,
+input[type="reset"]:hover,
+input[type="button"]:hover,
+button:hover {
+    background-color: transparent;
+    border: 1px solid #613228;
+    color: #000;
+}
+
+/* ======= Success Alert ======= */
+.alert-success {
+    background: #f9efe2; /* Light cream background */
+    color: #000; /* Dark text */
+    border: 1px solid #613228;
+    border-radius: 5px;
+    font-family: 'Didact Gothic', sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    padding: 15px 20px;
+    margin-top: 15px;
+    opacity: 0;
+    animation: fadeInOut 6s ease-in-out forwards;
+}
+
+@keyframes fadeInOut {
+    0% {
+        opacity: 0;
+        transform: translateY(-10px);
     }
-    .instagram-embed-container {
-        padding: 12px;
+    10% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    90% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+}
+
+/* ======= Responsive Adjustments ======= */
+@media (max-width: 992px) {
+    .contact .row.align-items-center {
+        flex-direction: column;
+    }
+
+    .contact .col-md-5,
+    .contact .col-md-6 {
+        width: 100%;
+        max-height: none;
     }
 }
 
 @media (max-width: 767px) {
     .instagram-embed {
-        aspect-ratio: 16 / 9; /* Adapt to landscape ratio on mobile */
+        aspect-ratio: 16 / 9;
     }
-    .instagram-embed-container {
-        padding: 10px;
+
+    .instagram-embed iframe {
+        pointer-events: auto; /* Enable interactions if needed */
+    }
+
+    .instagram-cta .butn-dark a {
+        font-size: 14px;
+        padding: 8px 18px;
     }
 }
 
 @media (max-width: 575px) {
     .instagram-embed {
-        aspect-ratio: 4 / 5; /* Taller embed for small mobile devices */
+        aspect-ratio: 4 / 5;
     }
+
+    .instagram-embed::after {
+        content: " "; /* Placeholder to hide native button */
+        display: block;
+        width: 100%;
+        height: 50px;
+        background: linear-gradient(to bottom, rgba(255, 255, 255, 0), #fff);
+        position: absolute;
+        bottom: 0;
+        left: 0;
+    }
+
     .instagram-cta .butn-dark a {
-        font-size: 14px; /* Slightly smaller text for mobile screens */
-        padding: 8px 18px; /* Compact padding for smaller viewports */
+        font-size: 14px;
+        padding: 8px 18px;
     }
 }
+
 
 
 

@@ -1398,60 +1398,51 @@ html {
     transition: all 0.3s ease 0.1s;
 }
 
-/* Arrow Column: Centers the arrow SVG */
+/* Arrow Column Styling */
 .arrow-col {
     display: flex;
     align-items: center;
     justify-content: center;
-  }
-  
-  /* Arrow Container: Controls the size */
-  .arrow-connector {
-    width: 200px; /* Default size for desktop */
+}
+
+/* Arrow Container */
+.arrow-connector {
+    width: 220px; /* Slightly larger for better visibility */
     max-width: 100%;
     margin: 0 auto;
-  }
-  
-  /* Arrow SVG Styling */
-  .arrow-connector svg {
+    position: relative;
+}
+
+/* SVG Styling */
+.arrow-connector svg {
     width: 100%;
     height: auto;
-  }
-  
-  /* Arrow Styling (Desktop) */
-  .arrow-connector svg path {
-    stroke: #8B4513; /* SaddleBrown */
-    stroke-width: 14;
+    overflow: visible;
+}
+
+/* Brown Arrow Path (Always Visible) */
+.arrow-connector svg path {
+    stroke: #8B4513; /* SaddleBrown color for the arrow line */
+    stroke-width: 10;
     stroke-linecap: round;
     stroke-linejoin: round;
-    transition: stroke 0.3s ease;
-  }
-  
-  /* Arrowhead Styling */
-  .arrow-connector svg path:last-child {
-    fill: #8B4513;
-  }
-  
-  /* Hover Effect */
-  .arrow-connector:hover svg path {
-    stroke: #A0522D; /* Lighter brown on hover */
-  }
-  .arrow-connector:hover svg path:last-child {
-    fill: #A0522D;
-  }
-  
-  /* 📱 Responsive Arrow for Mobile Screens */
-  @media (max-width: 767px) {
-    .arrow-col {
-      margin: 20px 0; /* Add some spacing */
-    }
-  
+    fill: none;
+}
+
+/* Brown Arrowhead (Always Visible) */
+.arrow-connector svg path:last-child {
+    fill: #8B4513; /* SaddleBrown color for the arrowhead */
+}
+
+/* Responsive Design */
+@media (max-width: 767px) {
     .arrow-connector {
-      width: 100px; /* Smaller size for mobile */
-      transform: rotate(90deg); /* Rotate arrow to point downward */
+        width: 140px; /* Compact size for smaller screens */
     }
-  }
-  
+}
+
+
+
 
 
 /* ======= Team style ======= */
@@ -2369,91 +2360,43 @@ font-size: 14px;
     color: #613228;
 }
 
-/* ======= Contact List ======= */
-.contact-list {
-    position: relative;
-    display: block;
-}
-
-.contact-list li {
-    position: relative;
+/* ======= Contact Section Layout ======= */
+.contact__container {
     display: flex;
-    align-items: center;
+    align-items: stretch;
+    gap: 30px;
+    flex-wrap: wrap;
 }
 
-.contact-list li + li {
-    margin-top: 5px;
-}
-
-.contact-list li .icon span {
-    font-size: 18px;
-    color: #613228;
-}
-
-.contact-list li .text {
-    margin-left: 20px;
-}
-
-.contact-list li .text p {
-    margin: 0;
-    font-size: 18px;
-    color: #000;
-}
-
-.contact-list li .text p a {
-    font-size: 18px;
-    color: #000;
-    transition: all 500ms ease;
-}
-
-.contact-list li .text p a:hover {
-    color: #613228;
-}
-
-/* ======= Map ======= */
-.contactMap {
-    width: 100%;
-    height: 500px;
-}
-
-/* ======= Contact & Instagram Equal Height ======= */
-.contact .row.align-items-center {
-    display: flex;
-    align-items: stretch; /* Ensure equal height */
-}
-
-/* Ensure Instagram Embed and Contact Form Share Equal Space */
-.contact .col-md-5,
-.contact .col-md-6 {
+.contact__section {
     display: flex;
     flex-direction: column;
-    justify-content: stretch;
+    justify-content: space-between;
+    flex: 1;
+    min-height: 500px; /* Ensures equal vertical space */
 }
 
 /* ======= Instagram Embed Container ======= */
 .instagram-embed-container {
-    flex: 1; /* Takes full available space */
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     text-align: center;
-    background: #fff; /* Clean background */
-    border-radius: 15px; /* Rounded corners */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Soft shadow */
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     padding: 15px;
-    margin-bottom: 30px;
-    position: relative; /* For overlay positioning */
+    position: relative;
+    flex: 1;
 }
 
-/* ======= Instagram Embed ======= */
 .instagram-embed {
     flex-grow: 1;
     position: relative;
     width: 100%;
-    overflow: hidden;
     border-radius: 15px;
-    aspect-ratio: 1 / 1; /* Maintains square aspect ratio */
+    aspect-ratio: 1 / 1;
 }
 
 .instagram-embed iframe {
@@ -2461,91 +2404,68 @@ font-size: 14px;
     height: 100%;
     border: 0;
     border-radius: 15px;
-    pointer-events: auto; /* Enable interaction with embedded posts */
+    pointer-events: auto; /* Allows interaction with the iframe */
+    clip-path: inset(0 0 50px 0); /* Hides the bottom area where the Instagram button appears */
 }
 
-/* ======= Mobile Overlay to Hide Native Instagram Button ======= */
-@media (max-width: 575px) {
-    .instagram-embed::after {
-        content: "";
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 50px; /* Covers Instagram's "View Profile" button */
-        background: linear-gradient(to bottom, rgba(255, 255, 255, 0), #fff);
-        pointer-events: none; /* Ensure overlay does not block clicks */
-        z-index: 10;
-    }
-}
-
-/* ======= Instagram CTA Button ======= */
+/* ======= Button Styling (Unified for Both Buttons) ======= */
 .instagram-cta {
     margin-top: 15px;
     text-align: center;
 }
 
-.instagram-cta .butn-dark {
-    margin-top: 10px;
+.instagram-cta .btn-primary {
+    font-family: 'Didact Gothic', sans-serif;
+    font-size: 16px;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: 400;
+    background: #613228;
+    color: #fcf8f3;
+    padding: 10px 28px;
+    border-radius: 5px;
+    border: 1px solid #613228;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
 }
 
-.instagram-cta .butn-dark a {
+.instagram-cta .btn-primary:hover {
+    background: #f9efe2;
+    color: #000;
+}
+
+/* ======= Mobile-Specific Styling ======= */
+@media (max-width: 767px) {
+    .instagram-embed iframe {
+        clip-path: inset(0 0 60px 0); /* Adjust as needed to ensure the native button is hidden */
+    }
+}
+
+
+/* ======= Submit Button (Matched to Instagram Button) ======= */
+.contact__form button {
+    font-family: 'Didact Gothic', sans-serif;
     font-size: 16px;
+    text-transform: uppercase;
+    background: #613228;
+    color: #fcf8f3;
     padding: 10px 28px;
-    background: #613228; /* Brown background */
-    color: #fcf8f3; /* Light text */
-    border-radius: 8px;
+    border-radius: 5px;
+    border: 1px solid #613228;
+    cursor: pointer;
     transition: all 0.3s ease;
 }
 
-.instagram-cta .butn-dark a:hover {
-    background: #f9efe2; /* Light cream hover effect */
+.contact__form button:hover {
+    background: #f9efe2;
     color: #000;
 }
 
-/* ======= Contact Form Styling ======= */
-.contact__form {
-    flex: 1; /* Ensure the form fills its container */
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-/* ======= Submit Button ======= */
-input[type="submit"],
-input[type="reset"],
-input[type="button"],
-button {
-    font-family: 'Didact Gothic', sans-serif;
-    font-size: 16px;
-    text-shadow: none;
-    box-shadow: none;
-    line-height: 1.75em;
-    transition: background-color 0.3s ease-out, color 0.3s ease-out;
-    border: none;
-    color: #fff;
-    background: #613228;
-    border: 1px solid #613228;
-    padding: 10px 27px;
-    position: relative;
-    overflow: hidden;
-    cursor: pointer;
-    border-radius: 5px;
-}
-
-input[type="submit"]:hover,
-input[type="reset"]:hover,
-input[type="button"]:hover,
-button:hover {
-    background-color: transparent;
-    border: 1px solid #613228;
-    color: #000;
-}
-
-/* ======= Success Alert ======= */
+/* ======= Success Message ======= */
 .alert-success {
-    background: #f9efe2; /* Light cream background */
-    color: #000; /* Dark text */
+    background: #f9efe2;
+    color: #000;
     border: 1px solid #613228;
     border-radius: 5px;
     font-family: 'Didact Gothic', sans-serif;
@@ -2579,151 +2499,22 @@ button:hover {
 
 /* ======= Responsive Adjustments ======= */
 @media (max-width: 992px) {
-    .contact .row.align-items-center {
+    .contact__container {
         flex-direction: column;
     }
 
-    .contact .col-md-5,
-    .contact .col-md-6 {
-        width: 100%;
-        max-height: none;
-    }
-}
-
-@media (max-width: 767px) {
-    .instagram-embed {
-        aspect-ratio: 16 / 9;
-    }
-
-    .instagram-cta .butn-dark a {
-        font-size: 14px;
-        padding: 8px 18px;
+    .contact__section {
+        min-height: auto;
     }
 }
 
 @media (max-width: 575px) {
-    .instagram-embed {
-        aspect-ratio: 4 / 5;
-    }
-
-    .instagram-cta .butn-dark a {
+    .instagram-cta .btn-primary {
         font-size: 14px;
         padding: 8px 18px;
     }
-}
 
-
-/* ======= Submit Button ======= */
-input[type="submit"],
-input[type="reset"],
-input[type="button"],
-button {
-    font-family: 'Didact Gothic', sans-serif;
-    font-size: 16px;
-    text-shadow: none;
-    box-shadow: none;
-    line-height: 1.75em;
-    transition: background-color 0.3s ease-out, color 0.3s ease-out;
-    border: none;
-    color: #fff;
-    background: #613228;
-    border: 1px solid #613228;
-    padding: 10px 27px;
-    position: relative;
-    overflow: hidden;
-    cursor: pointer;
-    border-radius: 5px;
-}
-
-input[type="submit"]:hover,
-input[type="reset"]:hover,
-input[type="button"]:hover,
-button:hover {
-    background-color: transparent;
-    border: 1px solid #613228;
-    color: #000;
-}
-
-/* ======= Success Alert ======= */
-.alert-success {
-    background: #f9efe2; /* Light cream background */
-    color: #000; /* Dark text */
-    border: 1px solid #613228;
-    border-radius: 5px;
-    font-family: 'Didact Gothic', sans-serif;
-    font-size: 16px;
-    font-weight: bold;
-    text-align: center;
-    padding: 15px 20px;
-    margin-top: 15px;
-    opacity: 0;
-    animation: fadeInOut 6s ease-in-out forwards;
-}
-
-@keyframes fadeInOut {
-    0% {
-        opacity: 0;
-        transform: translateY(-10px);
-    }
-    10% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-    90% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-    100% {
-        opacity: 0;
-        transform: translateY(-10px);
-    }
-}
-
-/* ======= Responsive Adjustments ======= */
-@media (max-width: 992px) {
-    .contact .row.align-items-center {
-        flex-direction: column;
-    }
-
-    .contact .col-md-5,
-    .contact .col-md-6 {
-        width: 100%;
-        max-height: none;
-    }
-}
-
-@media (max-width: 767px) {
-    .instagram-embed {
-        aspect-ratio: 16 / 9;
-    }
-
-    .instagram-embed iframe {
-        pointer-events: auto; /* Enable interactions if needed */
-    }
-
-    .instagram-cta .butn-dark a {
-        font-size: 14px;
-        padding: 8px 18px;
-    }
-}
-
-@media (max-width: 575px) {
-    .instagram-embed {
-        aspect-ratio: 4 / 5;
-    }
-
-    .instagram-embed::after {
-        content: " "; /* Placeholder to hide native button */
-        display: block;
-        width: 100%;
-        height: 50px;
-        background: linear-gradient(to bottom, rgba(255, 255, 255, 0), #fff);
-        position: absolute;
-        bottom: 0;
-        left: 0;
-    }
-
-    .instagram-cta .butn-dark a {
+    .contact__form button {
         font-size: 14px;
         padding: 8px 18px;
     }

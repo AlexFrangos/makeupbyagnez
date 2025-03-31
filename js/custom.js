@@ -198,8 +198,8 @@ $(function() {
         }
     });
     
-    // MagnificPopup
-    $(".img-zoom").magnificPopup({
+    // MagnificPopup - Original Initialization (Keep this if needed for videos/other popups)
+    $(".img-zoom-original").magnificPopup({ // Renamed original selector slightly if needed, or remove if not used elsewhere
         type: "image"
         , closeOnContentClick: !0
         , mainClass: "mfp-fade"
@@ -208,7 +208,7 @@ $(function() {
             , navigateByImgClick: !0
             , preload: [0, 1]
         }
-    })
+    });
     $('.magnific-youtube, .magnific-vimeo, .magnific-custom').magnificPopup({
         disableOn: 700
         , type: 'iframe'
@@ -217,6 +217,120 @@ $(function() {
         , preloader: false
         , fixedContentPos: false
     });
+    
+    // --- NEW DYNAMIC GALLERY POPUP ---
+    $('#gallery').on('click', '.gallery-trigger', function(e) {
+        e.preventDefault(); // Prevent default link behavior
+
+        var $trigger = $(this); // The clicked <a> tag
+
+        // --- गैलरी आइटम डेटा प्राप्त करें ---
+        var mainImage = $trigger.data('main-image');
+        var otherImagesRaw = $trigger.data('other-images');
+        var title = $trigger.data('title') || ''; // Default to empty string if not set
+        var description = $trigger.data('description') || '';
+        var occasion = $trigger.data('occasion') || '';
+        var products = $trigger.data('products') || '';
+
+        // --- गैलरी आइटम ऐरे बनाएं ---
+        var itemsArray = [];
+
+        // Add the main image first
+        if (mainImage) {
+            itemsArray.push({
+                src: mainImage,
+                title: title // Main title for the first image
+                // We'll add details via callbacks
+            });
+        }
+
+        // Add other images
+        if (otherImagesRaw) {
+            var otherImages = otherImagesRaw.split(',');
+            otherImages.forEach(function(imgSrc) {
+                if (imgSrc) { // Ensure not empty string
+                    itemsArray.push({
+                        src: imgSrc.trim(), // Trim whitespace
+                        title: title // Use main title for all images in this set, or customize
+                    });
+                }
+            });
+        }
+
+        // --- यदि कोई आइटम नहीं है तो बाहर निकलें ---
+        if (itemsArray.length === 0) {
+            console.error("Magnific Popup: No images found for this gallery trigger.");
+            return;
+        }
+
+        // --- Magnific Popup खोलें ---
+        $.magnificPopup.open({
+            items: itemsArray,
+            type: 'image',
+            mainClass: 'mfp-with-zoom mfp-img-mobile mfp-gallery-custom', // Added custom class
+            closeOnContentClick: false, // Keep popup open on image click
+            closeBtnInside: false,
+            image: {
+                verticalFit: true,
+                titleSrc: function(item) {
+                    // Use the title defined in the itemsArray
+                    return item.title || '';
+                }
+            },
+            gallery: {
+                enabled: true // Enable navigation between images *in this set*
+            },
+            zoom: {
+                enabled: true,
+                duration: 300,
+                easing: 'ease-in-out',
+                opener: function() {
+                    // Opener is the image inside the clicked trigger link
+                    return $trigger.find('img');
+                }
+            },
+            // --- विस्तृत जानकारी के लिए कस्टम मार्कअप ---
+            markup: '<div class="mfp-figure">'+
+                        '<div class="mfp-close"></div>'+
+                        '<div class="mfp-img"></div>'+
+                        '<div class="mfp-bottom-bar">'+
+                          '<div class="mfp-title"></div>'+
+                          '<div class="mfp-counter"></div>'+ // Counter moved up
+                          '<div class="mfp-details-section">'+ // New section for details
+                             '<div class="mfp-description"></div>'+
+                             '<div class="mfp-occasion"></div>'+
+                             '<div class="mfp-products"></div>'+
+                          '</div>' +
+                        '</div>'+
+                      '</div>',
+            // --- कॉलबैक विवरण पॉप्युलेट करने के लिए ---
+            callbacks: {
+                elementParse: function(item) {
+                    // This might not be needed as we populate in 'change'/'open'
+                },
+                open: function() {
+                    // Populate details when popup opens (for the first item)
+                    var wrap = this.wrap; // Get the popup wrapper
+                    wrap.find('.mfp-description').text(description);
+                    if(occasion) wrap.find('.mfp-occasion').html('<strong>Occasion:</strong> ' + occasion);
+                    if(products) wrap.find('.mfp-products').html('<strong>Products Used:</strong> ' + products);
+                },
+                change: function() {
+                    // Populate details when changing items
+                    // NOTE: Since details are tied to the LOOK, not the individual image,
+                    // we always display the details from the initial trigger.
+                    var wrap = this.wrap;
+                    wrap.find('.mfp-description').text(description);
+                     if(occasion) wrap.find('.mfp-occasion').html('<strong>Occasion:</strong> ' + occasion);
+                     else wrap.find('.mfp-occasion').empty(); // Clear if no occasion
+
+                     if(products) wrap.find('.mfp-products').html('<strong>Products Used:</strong> ' + products);
+                     else wrap.find('.mfp-products').empty(); // Clear if no products
+                }
+            }
+        }); // End $.magnificPopup.open
+    });
+    // --- END NEW DYNAMIC GALLERY POPUP ---
     
     //  Scroll back to top
     var progressPath = document.querySelector('.progress-wrap path');

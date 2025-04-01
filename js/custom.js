@@ -480,3 +480,21 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
+
+// FAQ Interactive Functionality - Simplified
+$(document).ready(function() {
+    // Toggle FAQ items
+    $('.faq-card-header').on('click', function() {
+        let $card = $(this).closest('.faq-card');
+        
+        if ($card.hasClass('active')) {
+            $card.removeClass('active');
+        } else {
+            $('.faq-card').removeClass('active'); // Close all other cards
+            $card.addClass('active');
+        }
+    });
+    
+    // Initialize - show first FAQ item as active
+    $('.faq-card:first-child').addClass('active');
+});

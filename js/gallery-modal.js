@@ -259,4 +259,152 @@ document.addEventListener('DOMContentLoaded', function() {
             closeModal();
         }
     });
+
+    // Add this function after the closeModal function in gallery-modal.js
+    function enhanceMobileExperience() {
+        // Make thumbnail scrolling smoother on touch devices
+        const thumbnailsContainer = modal.querySelector('.gallery-modal-thumbnails');
+        
+        // Detect touch devices
+        if ('ontouchstart' in window || navigator.maxTouchPoints) {
+            thumbnailsContainer.style.webkitOverflowScrolling = 'touch';
+            thumbnailsContainer.style.scrollSnapType = 'x mandatory';
+            
+            // Apply scroll-snap to thumbnails
+            const thumbnails = thumbnailsContainer.querySelectorAll('.thumbnail');
+            thumbnails.forEach(thumb => {
+                thumb.style.scrollSnapAlign = 'center';
+            });
+        }
+        
+        // Add pinch-zoom support for main image on mobile
+        const mainImage = modal.querySelector('.gallery-modal-main-image');
+        let currentScale = 1;
+        let startDistance = 0;
+        
+        mainImage.addEventListener('touchstart', function(e) {
+            if (e.touches.length === 2) {
+                startDistance = getDistance(e.touches[0], e.touches[1]);
+            }
+        });
+        
+        mainImage.addEventListener('touchmove', function(e) {
+            if (e.touches.length === 2) {
+                e.preventDefault(); // Prevent default pinch zoom behavior
+                
+                const currentDistance = getDistance(e.touches[0], e.touches[1]);
+                const scale = currentDistance / startDistance;
+                
+                // Limit zoom between 1x and 3x
+                const newScale = Math.min(Math.max(currentScale * scale, 1), 3);
+                
+                const img = mainImage.querySelector('img');
+                img.style.transform = `scale(${newScale})`;
+            }
+        });
+        
+        mainImage.addEventListener('touchend', function() {
+            // Store the current scale for next touch interaction
+            const img = mainImage.querySelector('img');
+            const transform = img.style.transform;
+            
+            if (transform) {
+                const match = transform.match(/scale\(([0-9.]+)\)/);
+                if (match && match[1]) {
+                    currentScale = parseFloat(match[1]);
+                }
+            }
+            
+            // Reset scale after 5 seconds of inactivity
+            setTimeout(() => {
+                img.style.transform = 'scale(1)';
+                currentScale = 1;
+            }, 5000);
+        });
+        
+        function getDistance(touch1, touch2) {
+            return Math.sqrt(
+                Math.pow(touch2.clientX - touch1.clientX, 2) +
+                Math.pow(touch2.clientY - touch1.clientY, 2)
+            );
+        }
+    }
+
+    // Call this function right after DOM content is loaded
+    enhanceMobileExperience();
+
+    // Add fullscreen image viewing capability
+    function setupFullscreenViewing() {
+        const mainImage = modal.querySelector('.gallery-modal-main-image');
+        const mainImageImg = mainImage.querySelector('img');
+        
+        // Add fullscreen icon
+        const fullscreenBtn = document.createElement('button');
+        fullscreenBtn.className = 'fullscreen-button';
+        fullscreenBtn.innerHTML = '<i class="ti-fullscreen"></i>';
+        fullscreenBtn.setAttribute('aria-label', 'View fullscreen');
+        mainImage.appendChild(fullscreenBtn);
+        
+        // Toggle fullscreen mode
+        fullscreenBtn.addEventListener('click', function() {
+            if (!mainImage.classList.contains('fullscreen-mode')) {
+                // Enter fullscreen mode
+                mainImage.classList.add('fullscreen-mode');
+                fullscreenBtn.innerHTML = '<i class="ti-close"></i>';
+                document.body.style.overflow = 'hidden';
+            } else {
+                // Exit fullscreen mode
+                mainImage.classList.remove('fullscreen-mode');
+                fullscreenBtn.innerHTML = '<i class="ti-fullscreen"></i>';
+                document.body.style.overflow = '';
+            }
+        });
+        
+        // Close fullscreen on escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && mainImage.classList.contains('fullscreen-mode')) {
+                mainImage.classList.remove('fullscreen-mode');
+                fullscreenBtn.innerHTML = '<i class="ti-fullscreen"></i>';
+                document.body.style.overflow = '';
+            }
+        });
+    }
+
+    // Call this function right after DOM content is loaded
+    setupFullscreenViewing();
+
+    // Add this function to enable swipe navigation
+    function setupSwipeNavigation() {
+        const mainImage = modal.querySelector('.gallery-modal-main-image');
+        let touchStartX = 0;
+        let touchEndX = 0;
+        
+        mainImage.addEventListener('touchstart', function(e) {
+            touchStartX = e.touches[0].clientX;
+        });
+        
+        mainImage.addEventListener('touchend', function(e) {
+            touchEndX = e.changedTouches[0].clientX;
+            handleSwipe();
+        });
+        
+        function handleSwipe() {
+            const minSwipeDistance = 50;
+            const thumbnails = Array.from(modalThumbnails.querySelectorAll('.thumbnail'));
+            const currentIndex = thumbnails.findIndex(thumb => thumb.classList.contains('active'));
+            
+            if (touchEndX < touchStartX - minSwipeDistance) {
+                // Swipe left - go to next image
+                const nextIndex = (currentIndex + 1) % thumbnails.length;
+                thumbnails[nextIndex].click();
+            } else if (touchEndX > touchStartX + minSwipeDistance) {
+                // Swipe right - go to previous image
+                const prevIndex = (currentIndex - 1 + thumbnails.length) % thumbnails.length;
+                thumbnails[prevIndex].click();
+            }
+        }
+    }
+
+    // Call this function too
+    setupSwipeNavigation();
 }); 
